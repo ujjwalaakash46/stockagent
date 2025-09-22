@@ -1,0 +1,13 @@
+crewai[tools]
+crewai[google]
+langchain_google_genai
+yfinance
+pandas
+matplotlib
+textblob
+python-dotenv
+requests
+beautifulsoup4
+numpy
+threading
+uuid
