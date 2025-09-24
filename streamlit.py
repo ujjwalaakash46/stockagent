@@ -38,8 +38,8 @@ if QUEUE_AVAILABLE and 'queue_initialized' not in st.session_state:
         st.error(f"Failed to initialize queue system: {str(e)}")
 
 # Title and description
-st.title("🤖 AI-Powered Stock Analysis with Persistent Queue")
-st.markdown("Multi-agent analysis of Indian stocks with background processing and persistent results.")
+st.title("🤖 AI-Powered Stock Analysis")
+st.markdown("Multi-agent analysis of Indian stocks")
 
 # Auto-refresh checkbox
 auto_refresh = st.checkbox("🔄 Auto-refresh queue status (every 30 seconds)", value=False)
@@ -259,23 +259,3 @@ with col2:
 
 # Footer information
 st.markdown("---")
-col_info1, col_info2 = st.columns(2)
-
-with col_info1:
-    st.markdown("### 🛠️ How It Works")
-    st.markdown("""
-    1. **Add stocks** to the analysis queue
-    2. **Background processing** runs continuously
-    3. **Results persist** even when Streamlit is closed
-    4. **Email notifications** sent when analysis completes
-    5. **View results** anytime, from any session
-    """)
-
-with col_info2:
-    st.markdown("### 📁 File Storage")
-    st.markdown("""
-    - `stock_queue.json` - Pending analysis requests
-    - `stock_results.json` - Completed analysis results
-    - Background processing continues independently
-    - Data persists across browser sessions
-    """)

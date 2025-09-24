@@ -71,40 +71,40 @@ class StockAnalysisQueueManager:
             str: Unique request ID
         """
         request_id = str(uuid.uuid4())
-        
+
         # Create request object
         request = {
             "id": request_id,
             "ticker": ticker.upper(),
-            "company_name": company_name or ticker,
+            "company_name": company_name or ticker.upper(),
             "status": "pending",
             "created_at": datetime.now().isoformat(),
             "started_at": None,
             "completed_at": None,
             "position_in_queue": None
         }
-        
+
         # Load existing queue
         current_queue = self._load_json_file(self.queue_file)
-        
+
         # Check if already in queue
         for item in current_queue:
             if item["ticker"] == ticker.upper() and item["status"] == "pending":
-                print(f"âš ï¸ {ticker} is already in the queue with ID: {item['id']}")
+                print(f"⚠️ {ticker} is already in the queue with ID: {item['id']}")
                 return item["id"]
-        
+
         # Add to queue
         current_queue.append(request)
-        
+
         # Update positions
         for i, item in enumerate(current_queue):
             if item["status"] == "pending":
                 item["position_in_queue"] = len([x for x in current_queue[:i+1] if x["status"] == "pending"])
-        
+
         # Save updated queue
         self._save_json_file(self.queue_file, current_queue)
-        
-        print(f"âœ… Added {ticker} to analysis queue with ID: {request_id}")
+
+        print(f"✅ Added {ticker} to analysis queue with ID: {request_id}")
         return request_id
     
     def get_queue_status(self) -> Dict:
@@ -196,44 +196,44 @@ class StockAnalysisQueueManager:
         try:
             from stockai import analyze_stock_with_multi_agents
         except ImportError:
-            print("âŒ Could not import stockai module")
+            print("❌ Could not import stockai module")
             return False
-        
+
         current_queue = self._load_json_file(self.queue_file)
-        
+
         # Find next pending item
         next_item = None
         for item in current_queue:
             if item["status"] == "pending":
                 next_item = item
                 break
-        
+
         if not next_item:
             return False
-        
-        print(f"ðŸš€ Starting analysis for {next_item['ticker']}...")
-        
+
+        print(f"🚀 Starting analysis for {next_item['ticker']}...")
+
         # Update status to processing
         for item in current_queue:
             if item["id"] == next_item["id"]:
                 item["status"] = "processing"
                 item["started_at"] = datetime.now().isoformat()
                 break
-        
+
         self._save_json_file(self.queue_file, current_queue)
-        
+
         try:
             # Run the analysis
             result = analyze_stock_with_multi_agents(
                 next_item["ticker"], 
-                next_item["company_name"]
+                next_item.get("company_name", next_item["ticker"])
             )
-            
+
             # Prepare result object
             completed_result = {
                 "id": next_item["id"],
                 "ticker": next_item["ticker"],
-                "company_name": next_item["company_name"],
+                "company_name": next_item.get("company_name", next_item["ticker"]),
                 "status": "completed",
                 "created_at": next_item["created_at"],
                 "started_at": next_item["started_at"],
@@ -242,16 +242,16 @@ class StockAnalysisQueueManager:
                 "success": True,
                 "error": None
             }
-            
-            print(f"âœ… Analysis completed for {next_item['ticker']}")
-            
+
+            print(f"✅ Analysis completed for {next_item['ticker']}")
+
         except Exception as e:
             # Handle errors
             error_msg = str(e)
             completed_result = {
                 "id": next_item["id"],
                 "ticker": next_item["ticker"],
-                "company_name": next_item["company_name"],
+                "company_name": next_item.get("company_name", next_item["ticker"]),
                 "status": "failed",
                 "created_at": next_item["created_at"],
                 "started_at": next_item["started_at"],
@@ -260,26 +260,26 @@ class StockAnalysisQueueManager:
                 "success": False,
                 "error": error_msg
             }
-            
-            print(f"âŒ Analysis failed for {next_item['ticker']}: {error_msg}")
-        
+
+            print(f"❌ Analysis failed for {next_item['ticker']}: {error_msg}")
+
         # Save result
         results = self._load_json_file(self.results_file)
         results.append(completed_result)
         self._save_json_file(self.results_file, results)
-        
+
         # Remove from queue
         current_queue = [item for item in current_queue if item["id"] != next_item["id"]]
-        
+
         # Update positions for remaining items
         pending_count = 1
         for item in current_queue:
             if item["status"] == "pending":
                 item["position_in_queue"] = pending_count
                 pending_count += 1
-        
+
         self._save_json_file(self.queue_file, current_queue)
-        
+
         return True
     
     def start_background_processing(self):
