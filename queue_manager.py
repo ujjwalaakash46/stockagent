@@ -33,6 +33,7 @@ class StockAnalysisQueueManager:
         self.worker_thread = None
         
         # Initialize JSON files if they don't exist
+        self.file_lock = threading.Lock()
         self._initialize_files()
     
     def _initialize_files(self):
@@ -45,19 +46,21 @@ class StockAnalysisQueueManager:
     
     def _load_json_file(self, file_path: str) -> List[Dict]:
         """Safely load JSON file with error handling"""
-        try:
-            with open(file_path, 'r') as f:
-                return json.load(f)
-        except (FileNotFoundError, json.JSONDecodeError):
-            return []
+        with self.file_lock:
+            try:
+                with open(file_path, 'r') as f:
+                    return json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                return []
     
     def _save_json_file(self, file_path: str, data: List[Dict]):
         """Safely save JSON file with error handling"""
-        try:
-            with open(file_path, 'w') as f:
-                json.dump(data, f, indent=2, default=str)
-        except Exception as e:
-            print(f"âŒ Error saving {file_path}: {str(e)}")
+        with self.file_lock:
+            try:
+                with open(file_path, 'w') as f:
+                    json.dump(data, f, indent=2, default=str)
+            except Exception as e:
+                print(f"âŒ Error saving {file_path}: {str(e)}")
     
     def add_to_queue(self, ticker: str, company_name: str = None) -> str:
         """
