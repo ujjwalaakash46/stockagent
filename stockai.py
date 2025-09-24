@@ -316,7 +316,7 @@ def analyze_stock_with_multi_agents(symbol, company_name=None):
         tasks=tasks,
         llm=gemini_llm,
         process=Process.sequential,
-        verbose=2,
+        verbose=True,
     )
 
     print(f"🤖 Deploying {len(stock_analysis_crew.agents)} AI agents for analysis...")
