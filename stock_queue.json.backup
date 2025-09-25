@@ -1,0 +1,14 @@
+[
+  {
+    "id": "c656014b-926c-4d7b-91ff-d233b685d3ec",
+    "ticker": "RELIANCE",
+    "company_name": "RELIANCE",
+    "status": "processing",
+    "created_at": "2025-09-25T11:56:59.722905",
+    "started_at": "2025-09-25T11:57:08.205217",
+    "completed_at": null,
+    "position_in_queue": 1,
+    "priority": 1,
+    "retry_count": 0
+  }
+]

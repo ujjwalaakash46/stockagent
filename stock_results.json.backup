@@ -194,27 +194,5 @@
     "success": true,
     "error": null,
     "execution_time": 35.658445835113525
-  },
-  {
-    "id": "c656014b-926c-4d7b-91ff-d233b685d3ec",
-    "ticker": "RELIANCE",
-    "company_name": "RELIANCE",
-    "status": "completed",
-    "created_at": "2025-09-25T11:56:59.722905",
-    "started_at": "2025-09-25T11:57:08.205217",
-    "completed_at": "2025-09-25T11:58:48.570913",
-    "analysis_result": {
-      "symbol": "RELIANCE",
-      "company_name": "RELIANCE",
-      "analysis_result": "**RELIANCE Industries Limited (RELIANCE.NS) Investment Recommendation Report**\n\n**1. Final Recommendation:** HOLD\n\n**2. Price Target:** 1450 INR (3-6 month outlook)\n\n**3. Stop-Loss:** 1340 INR\n\n**4. Confidence Score:** 5/10\n\n**5. Summary & Rationale:**\n\nReliance Industries is currently exhibiting mixed signals.  Fundamental analysis reveals a relatively high price-to-book ratio (2.21) and a significant debt-to-equity ratio (36.6%), suggesting some valuation concerns and leverage risk. While revenue growth is positive (5.1%), the lack of Return on Equity data prevents a complete fundamental assessment.  Technically, the stock price is trading below both its 20-day and 50-day moving averages, indicating a bearish short-term trend. The MACD is also bearish, and low trading volume suggests weak investor interest.  Sentiment analysis shows a neutral overall sentiment, indicating a lack of strong bullish or bearish pressure.  Considering the bearish technical indicators and valuation concerns, a HOLD recommendation is appropriate, with a cautiously optimistic price target based on potential positive future news and a recovery in market sentiment.\n\n**6. Risk Assessment:**\n\nKey risks include:\n\n* **High Debt Levels:** Reliance's substantial debt could negatively impact its financial flexibility and profitability if interest rates rise or economic conditions worsen.\n* **Geopolitical Uncertainty:**  As an energy company, Reliance is susceptible to fluctuations in global oil prices and geopolitical events.\n* **Competitive Landscape:**  The oil and gas refining and marketing industry is highly competitive, posing challenges to Reliance's market share and profitability.\n* **Regulatory Changes:**  Changes in government regulations could impact Reliance's operations and profitability.\n\n\n**Disclaimer:** This investment recommendation is based on the information available at the time of analysis and should not be considered financial advice.  Conduct thorough due diligence and consult with a financial advisor before making any investment decisions.  Past performance is not indicative of future results.",
-      "execution_time": 94.41147899627686,
-      "timestamp": "2025-09-25T11:58:42.632713",
-      "agents_used": 4,
-      "tasks_completed": 4,
-      "optimization_version": "2.1-fixed"
-    },
-    "success": true,
-    "error": null,
-    "execution_time": 94.41147899627686
   }
 ]
