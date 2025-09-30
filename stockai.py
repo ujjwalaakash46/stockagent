@@ -39,7 +39,7 @@ NEWS_API_KEY = os.getenv('NEWS_API_KEY')
 
 # Configure the LLM
 gemini_llm = LLM(
-    model="gemini/gemini-1.5-flash",
+    model="gemini/gemini-2.5-flash",
     api_key=GEMINI_API_KEY,
     temperature=0.2  # Lower for more consistent analysis
 )
